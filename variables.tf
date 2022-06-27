@@ -82,7 +82,6 @@ variable "vm_ssh_pub_key" {
   default     = "~/.ssh/id_rsa_openshift_ipi.pub"
 }
 
-
 variable "vnet_name_prefix" {
   type        = string
   description = "The name of the vpc resource"

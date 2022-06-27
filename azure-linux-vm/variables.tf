@@ -6,7 +6,6 @@ variable "vm_name" {
 
 variable "vm_size" {
   description = "VM Size"
-  default = "Standard_B2ms"
   type = string
 }
 
