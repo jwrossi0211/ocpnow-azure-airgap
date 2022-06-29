@@ -1,4 +1,4 @@
-module "resource_group" {
+module "resource_group_ocp_vnet" {
   source = "github.com/cloud-native-toolkit/terraform-azure-resource-group"
 
   resource_group_name = var.resource_group_name
@@ -9,9 +9,9 @@ module "resource_group" {
 module "ocp_vnet" {
   source = "github.com/cloud-native-toolkit/terraform-azure-vpc"
 
-  resource_group_name = module.resource_group.name
+  resource_group_name = module.resource_group_ocp_vnet.name
   name                = var.vnet_name
-  region              = module.resource_group.region
+  region              = module.resource_group_ocp_vnet.region
   name_prefix         = var.vnet_name_prefix
   address_prefix_count = 1
   address_prefixes    = ["10.0.0.0/24"]
@@ -21,8 +21,8 @@ module "ocp_vnet" {
 module "ocp_subnets" {
   source = "./ocp-subnets"
 
-  resource_group_name = module.resource_group.name
-  location = module.resource_group.region
+  resource_group_name = module.resource_group_ocp_vnet.name
+  location = module.resource_group_ocp_vnet.region
   vnet_name = module.ocp_vnet.name
   control_plane_subnet_name = var.control_plane_subnet_name
   control_plane_subnet_address = var.control_plane_subnet_address
@@ -35,7 +35,7 @@ module "ocp_subnets" {
 module "bastion_host" {
   source = "./azure-linux-vm"
 
-  resource_group_name = module.resource_group.name
+  resource_group_name = module.resource_group_ocp_vnet.name
 
   vm_name = var.vm_hostname
   vm_size = var.vm_size
@@ -90,4 +90,18 @@ module "bastion_host_mgmt" {
   vm_admin_password = var.vm_admin_password
   resource_group_location = module.resource_group_mgmt_vnet.region
   subnet_id = module.management_subnet.management_subnet_id
+}
+
+####### Virtual Network Peering #######
+
+module vnet_peering {
+  source = "./vnet-peering"
+
+  vnet_1_name = module.ocp_vnet.name
+  vnet_1_resourcegroup_name = module.resource_group_ocp_vnet.name
+  vnet_1_id = module.ocp_vnet.id
+
+  vnet_2_name = module.management_vnet.name
+  vnet_2_resourcegroup_name = module.resource_group_mgmt_vnet.name
+  vnet_2_id = module.management_vnet.id
 }

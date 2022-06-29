@@ -1,6 +1,6 @@
 
 output "ocp_vnet_rg_name" {
-  value = module.resource_group.name
+  value = module.resource_group_ocp_vnet.name
 }
 
 output "ocp_vnet_id" {

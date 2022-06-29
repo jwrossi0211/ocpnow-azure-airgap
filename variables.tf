@@ -67,6 +67,7 @@ variable "vm_admin_username" {
 variable "vm_admin_password" {
   description = "VM Password"
   type        = string
+  default     = "ILoveRHELandIBM@1!"
 }
 
 variable "vm_size" {
