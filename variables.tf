@@ -55,7 +55,7 @@ variable "management_subnet_address" {
 variable "vm_hostname" {
   description = "VM Host name"
   type        = string
-  default     = "lnuxBastion"
+  default     = "linux-bastion"
 }
 
 variable "vm_admin_username" {
@@ -86,4 +86,16 @@ variable "vnet_name_prefix" {
   type        = string
   description = "The name of the vpc resource"
   default = "name-prefix"
+}
+
+variable "dns_zone_name" {
+  type        = string
+  description = "Name of the DNS Zone"
+  default = "itz-azure.ibmdtepaks.com"
+}
+
+variable "dns_zone_resource_group_name" {
+  type        = string
+  description = "Name of the DNS Zone resource group"
+  default = "rg-dte-dns"
 }

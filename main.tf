@@ -105,3 +105,14 @@ module vnet_peering {
   vnet_2_resourcegroup_name = module.resource_group_mgmt_vnet.name
   vnet_2_id = module.management_vnet.id
 }
+
+###############  DNS ################
+
+module vm_dns {
+  source = "./azure-dns"
+
+  dns_zone_name = var.dns_zone_name
+  resource_group_name = var.dns_zone_resource_group_name
+  dns_resource_name = module.bastion_host.linux_vm_name
+  dns_resource_address = module.bastion_host.linux_vm_public_ip
+}
