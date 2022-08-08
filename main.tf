@@ -23,7 +23,7 @@ module "ocpvnet_management_subnet" {
   resource_group_name = module.resource_group_ocp_vnet.name
   region              = module.resource_group_ocp_vnet.region
   _count              = 1
-  label               = "management"
+  label               = "management"  # This label is used in the NSG name
   subnet_name         = var.management_subnet_name
   vpc_name            = module.ocp_vnet.name
   ipv4_cidr_blocks    = var.management_subnet_address
@@ -48,7 +48,7 @@ module "ocpvnet_control_plane_subnet" {
   resource_group_name = module.resource_group_ocp_vnet.name
   region              = module.resource_group_ocp_vnet.region
   _count              = 1
-  label               = "control_plane"
+  label               = "control_plane"  # This label is used in the NSG name
   subnet_name         = var.control_plane_subnet_name
   vpc_name            = module.ocp_vnet.name
   ipv4_cidr_blocks    = var.control_plane_subnet_address
@@ -105,7 +105,7 @@ module "ocpvnet_worker_subnet" {
   resource_group_name = module.resource_group_ocp_vnet.name
   region              = module.resource_group_ocp_vnet.region
   _count              = 1
-  label               = "worker"
+  label               = "worker" # This label is used in the NSG name
   subnet_name         = var.worker_subnet_name
   vpc_name            = module.ocp_vnet.name
   ipv4_cidr_blocks    = var.worker_subnet_address
@@ -201,9 +201,9 @@ module "management_network_subnet" {
   _count              = 1
   subnet_name         = var.management_subnet_name
   vpc_name            = module.management_vnet.name
-  label               = "mgmt"
+  label               = "mgmt"  # This label is used in the NSG name
   ipv4_cidr_blocks    = ["10.1.0.0/27"]
-  provision           = var.provision
+  provision           = true
   acl_rules = [{
     name        = "ssh-inbound"
     action      = "Allow"
