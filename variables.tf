@@ -1,55 +1,65 @@
 variable "resource_group_name" {
   description = "RG name"
   type        = string
-  default = "rg-jwr-test-airgap"
+  default     = "rg-jwr-test-airgap"
 }
 
 variable "region" {
   description = "Region"
   type        = string
-  default = "eastus"
+  default     = "eastus"
 }
-
+variable "provision" {
+  description = "should the resource be provisioned"
+  type        = bool
+  default     = true
+}
 variable "vnet_name" {
   description = "Virtual network name"
   type        = string
-  default = "ocp-vnet"
+  default     = "ocp-vnet"
+}
+
+variable "vnet_address_space" {
+  description = "Management subnet address"
+  type        = list(string)
+  default     = ["10.0.0.0/24"]
 }
 
 variable "control_plane_subnet_name" {
   description = "Control Plane subnet name"
   type        = string
-  default = "control-plane-subnet"
+  default     = "control-plane-subnet"
 }
 
 variable "control_plane_subnet_address" {
   description = "Control Plane subnet address"
-  type = list(string)
-  default = ["10.0.0.0/27"]
+  type        = list(string)
+  default     = ["10.0.0.0/27"]
 }
 
 variable "worker_subnet_name" {
   description = "Worker subnet name"
   type        = string
-  default = "worker-subnet"
+  default     = "worker-subnet"
 }
 
 variable "worker_subnet_address" {
   description = "Worker subnet address"
-  type = list(string)
-  default = ["10.0.0.32/27"]
+  type        = list(string)
+  default     = ["10.0.0.32/27"]
 }
 
 variable "management_subnet_name" {
   description = "Management subnet name"
   type        = string
-  default = "management-subnet"
+  default     = "management-subnet"
 }
 
 variable "management_subnet_address" {
   description = "Management subnet address"
-  type = list(string)
-  default = ["10.0.0.64/27"]
+  type        = list(string)
+  default     = ["10.0.0.64/27"]
 }
 
 variable "vm_hostname" {
@@ -73,7 +83,7 @@ variable "vm_admin_password" {
 variable "vm_size" {
   description = "VM Password"
   type        = string
-  default     = "Standard_B2ms" 
+  default     = "Standard_B2ms"
 }
 
 variable "vm_ssh_pub_key" {
@@ -85,17 +95,17 @@ variable "vm_ssh_pub_key" {
 variable "vnet_name_prefix" {
   type        = string
   description = "The name of the vpc resource"
-  default = "name-prefix"
+  default     = "name-prefix"
 }
 
 variable "dns_zone_name" {
   type        = string
   description = "Name of the DNS Zone"
-  default = "itz-azure.ibmdtepaks.com"
+  default     = "itz-azure.ibmdtepaks.com"
 }
 
 variable "dns_zone_resource_group_name" {
   type        = string
   description = "Name of the DNS Zone resource group"
-  default = "rg-dte-dns"
+  default     = "rg-dte-dns"
 }
